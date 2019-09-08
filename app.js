@@ -2,7 +2,7 @@ const {getMeMyPrice} = require('./src/stockprices.js');
 
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // app.get("/",(req,res)=>{
 //     res.status(200).send("Enter a Stock name");
