@@ -2,7 +2,7 @@ const {getMeMyPrice} = require('./src/stockprices.js');
 
 const express = require('express');
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT||3000;
 
 // app.get("/",(req,res)=>{
 //     res.status(200).send("Enter a Stock name");
@@ -14,13 +14,26 @@ app.get("/:stock",(req,res)=>{
         res.status(400).send({
             error: "Enter a value in the format /stockName"
         });
-    }else{
+    }
+    else{
         getMeMyPrice(stock).then((result)=>{
-            res.status(200).send({
+            if(result.stockPrice === ""){
+                res.status(400).send({
+                    error: "Enter valid input"
+                });
+                return; 
+            }else{ 
+                res.status(200).send({
                 stockName: result.stockName,
                 stockPrice: result.stockPrice,
-                yearlyHighLow: result.yearlyHighLow
+                yearlyHighLow: result.yearlyHighLow,
+                previousClose:result.prevClose,
+                dayHigh: result.dayHigh,
+                dayLow: result.dayLow,
+                nsePrice: result.NSE_price
             });
+        }
+           
         }).catch((error)=>{
             res.status(400).send({
                 error: "Enter valid input"

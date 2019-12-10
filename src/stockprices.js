@@ -9,7 +9,11 @@ const getMeMyPrice = (stockName)=>{
             let stock = {
                 stockName: stockName,
                 stockPrice: $('#ltpid').text(),
-                yearlyHighLow: $('#FiftyTwoHighlow').text()
+                yearlyHighLow: $('#FiftyTwoHighlow').text(),
+                prevClose: $('#PrevClose').text(),
+                dayHigh: $("#highlow").text().split(" - ")[0],
+                dayLow: $("#highlow").text().split(" - ")[1],
+                NSE_Price: $('#ltpid_nse').text()
                };
                if(error){
                    reject("Incorrect stock");
