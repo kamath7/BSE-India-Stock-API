@@ -30,7 +30,7 @@ app.get("/:stock",(req,res)=>{
                 previousClose:result.prevClose,
                 dayHigh: result.dayHigh,
                 dayLow: result.dayLow,
-                nsePrice: result.NSE_price
+                NSEPrice: result.NSE_Price
             });
         }
            
