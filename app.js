@@ -1,4 +1,4 @@
-const {getMeMyPrice} = require('./src/stockprices.js');
+const {getMeMyPrice,getMeMarketPrices} = require('./src/stockprices.js');
 
 const express = require('express');
 const app = express();
@@ -7,7 +7,14 @@ const port = process.env.PORT||3000;
 // app.get("/",(req,res)=>{
 //     res.status(200).send("Enter a Stock name");
 // });
-
+app.get("/prices",(req,res)=>{
+    getMeMarketPrices().then((price)=>{
+        res.status(200).send({
+            BSERate: price.bsePrice,
+            NSERate: price.nsePrice
+        });
+    });
+});
 app.get("/:stock",(req,res)=>{
     let stock = req.params.stock;
     if(!stock){
@@ -42,6 +49,7 @@ app.get("/:stock",(req,res)=>{
     }
 
 });
+
 app.listen(port,()=>{
     console.log("Listening on port",port);
 });

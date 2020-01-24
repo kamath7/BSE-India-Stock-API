@@ -25,8 +25,29 @@ const getMeMyPrice = (stockName)=>{
     });
 
 };
+const getMeMarketPrices = ()=>{
+    return new Promise(function(resolve,reject){
+        request(`https://money.rediff.com/index.html`,function(error,response,html){
+            const $ = cheerio.load(html);
+    
+            let prices = {
+                bsePrice: $("#bseindex").text(),
+                nsePrice: $("#nseindex").text()
+            };
+               if(error){
+                   reject("Incorrect stock");
+               }else{
+                   resolve(prices);
+               }
+        })
+
+    });
+
+};
+
 module.exports = {
-    getMeMyPrice
+    getMeMyPrice,
+    getMeMarketPrices
 };
 
 
